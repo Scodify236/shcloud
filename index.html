@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="en" class="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.webp" type="image/webp">
+    <title>T-CLOUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/color-thief.umd.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {"50":"#f0fdf4","100":"#dcfce7","200":"#bbf7d0","300":"#86efac","400":"#4ade80","500":"#22c55e","600":"#16a34a","700":"#15803d","800":"#166534","900":"#14532d","950":"#052e16"},
+                        youtube: {
+                            red: "#FF0000",
+                            darkRed: "#CC0000",
+                            lightGray: "#F1F1F1",
+                            darkGray: "#282828",
+                            black: "#0F0F0F"
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/242/236/855/mountains-river-snow-forest-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+        }
+
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            border-radius: 9999px;
+            overflow: hidden;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 0 0 3px rgba(241, 142, 3, 0.5);
+        }
+
+        .search-input {
+            flex-grow: 1;
+            background-color: transparent;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.875rem;
+        }
+
+        .search-button {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .custom-audio-player {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .custom-audio-player audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        .video-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .video-card {
+            background-color: rgba(40, 40, 40, 0.7);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .play-icon {
+            opacity: 1;
+        }
+
+        .play-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .artist-section {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .artist-section::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari and Opera */
+        }
+
+        .artist-item {
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .artist-item:hover {
+            transform: scale(1.03);
+        }
+
+        .artist-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-name {
+            display: block;
+            width: 120px;
+            text-align: center;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body class="text-gray-100 font-sans min-h-screen text-sm">
+    <div class="relative z-10">
+        <header class="sticky top-0 z-50 glass w-full">
+            <div class="mx-auto px-4 py-4 flex items-center justify-between w-11/12">
+                <div class="flex items-center space-x-4">
+                    <img src="images/favicon.webp" alt="S-CLOUD Logo" class="w-12 h-12 rounded-full shadow-lg">
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 text-transparent bg-clip-text">Trishul-Music</h1>
+                        <span class="text-xs text-gray-600 dark:text-gray-300">Made with ❤️ by Shashwat</span>
+                    </div>
+                </div>
+                <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="mx-auto px-4 py-8 mb-24 w-11/12">
+            <form id="searchForm" class="mb-8">
+                <div class="search-container bg-white/30 dark:bg-black/30">
+                    <input type="text" id="searchInput" placeholder="Search for songs..." class="search-input text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                    <button type="button" id="clearSearch" class="search-button text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <span class="search-divider text-gray-400">|</span>
+                    <button type="submit" id="searchButton" class="search-button text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <section id="artistSection" class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-primary-600 dark:text-primary-400">Popular Artists</h2>
+                <div class="artist-section">
+                    <!-- Artist items will be dynamically added here -->
+                </div>
+            </section>
+
+            <h2 id="resultsTitle" class="text-3xl font-bold mb-8 text-primary-600 dark:text-primary-400">Trending</h2>
+            <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"></div>
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 glass">
+            <div class="mx-auto px-2 py-2 w-11/12">
+                <div class="custom-audio-player">
+                    <audio id="audioPlayer" controls class="w-full"></audio>
+                </div>
+                <div id="nowPlaying" class="text-center font-semibold text-[11px] truncate text-orange-500 dark:text-orange-400 mt-2"></div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/artist.js"></script>
+    <script>
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('results');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const nowPlaying = document.getElementById('nowPlaying');
+    const resultsTitle = document.getElementById('resultsTitle');
+    const clearSearchButton = document.getElementById('clearSearch');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const artistSection = document.getElementById('artistSection');
+
+    const colorThief = new ColorThief();
+    let currentThumbnail = null;
+    let isLoading = false;
+    let nextPageToken = null;
+
+    function addCacheBuster(url) {
+        const cacheBuster = `cache_buster=${Date.now()}`;
+        return url.includes('?') ? `${url}&${cacheBuster}` : `${url}?${cacheBuster}`;
+    }
+
+    function createArtistElements() {
+            const artistContainer = artistSection.querySelector('.artist-section');
+            sampleArtists.forEach(artist => {
+                const artistElement = document.createElement('div');
+                artistElement.className = 'artist-item';
+                artistElement.innerHTML = `
+                    <img src="${artist.image}" alt="${artist.name}" class="artist-image">
+                    <span class="artist-name text-sm font-medium">${artist.name}</span>
+                `;
+                artistElement.addEventListener('click', () => searchArtist(artist.name));
+                artistContainer.appendChild(artistElement);
+            });
+        }
+
+    function searchArtist(artistName) {
+        searchInput.value = artistName;
+        performSearch(artistName);
+    }
+
+    async function performSearch(query, isNextPage = false) {
+    if (isLoading) return;
+    isLoading = true;
+
+    try {
+        let url;
+        if (isNextPage && nextPageToken) {
+            url = `https://pipedapi.reallyaweso.me/nextpage/search?q=${encodeURIComponent(query)}&filter=all&nextpage=${encodeURIComponent(nextPageToken)}`;
+        } else {
+            url = `https://pipedapi.reallyaweso.me/search?q=${encodeURIComponent(query)}&filter=all`;
+        }
+
+        const response = await fetch(addCacheBuster(url), { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+
+        if (!isNextPage) {
+            resultsTitle.textContent = `Search Results for "${query}"`;
+            resultsContainer.innerHTML = '';
+            artistSection.style.display = 'none';
+        }
+
+        displayResults(data.items);
+        nextPageToken = data.nextpage;
+
+        // Add a loading indicator
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loading-indicator';
+        loadingIndicator.textContent = 'Loading more results...';
+        loadingIndicator.className = 'text-center text-gray-500 my-4';
+        resultsContainer.appendChild(loadingIndicator);
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+        if (!isNextPage) {
+            resultsContainer.innerHTML = '<p class="text-center text-red-500">An error occurred while fetching results. Please try again.</p>';
+        }
+    } finally {
+        isLoading = false;
+    }
+}
+
+// Add an intersection observer to trigger loading more results
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0
+};
+
+const intersectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting && !isLoading && nextPageToken) {
+            const query = searchInput.value.trim();
+            performSearch(query, true);
+        }
+    });
+}, observerOptions);
+
+    async function fetchTrendingVideos() {
+        try {
+            const response = await fetch(addCacheBuster('https://pipedapi.kavin.rocks/trending?region=IN&filter=music'), {
+                cache: 'no-store'
+            });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            displayResults(data);
+        } catch (error) {
+            console.error('Error fetching trending videos:', error);
+            resultsContainer.innerHTML = '<p class="text-center text-red-500">An error occurred while fetching trending videos. Please try again.</p>';
+        }
+    }
+
+    searchForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if (query === '') return;
+        performSearch(query);
+    });
+
+    clearSearchButton.addEventListener('click', () => {
+    searchInput.value = '';
+    resultsTitle.textContent = 'Trending';
+    artistSection.style.display = 'block';
+    nextPageToken = null; // Reset the nextPageToken
+    fetchTrendingVideos();
+});
+
+    function setBackgroundColor(color) {
+        document.body.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    }
+
+    function getAverageColor(imgEl) {
+        return new Promise((resolve) => {
+            if (imgEl.complete) {
+                resolve(colorThief.getColor(imgEl));
+            } else {
+                imgEl.addEventListener('load', function() {
+                    resolve(colorThief.getColor(this));
+                });
+            }
+        });
+    }
+
+    async function updateBackgroundColor(thumbnailUrl) {
+        if (thumbnailUrl === currentThumbnail) return;
+        currentThumbnail = thumbnailUrl;
+
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.src = thumbnailUrl;
+
+        try {
+            const color = await getAverageColor(img);
+            setBackgroundColor(color);
+        } catch (error) {
+            console.error('Error getting average color:', error);
+            setDefaultBackground();
+        }
+    }
+
+    function setDefaultBackground() {
+        setBackgroundColor([30, 15, 0]); // Orangish black
+    }
+
+    function displayResults(items) {
+    items.forEach(item => {
+        if (item.type === 'stream' || item.type === 'video') {
+            const videoElement = document.createElement('div');
+            videoElement.className = 'video-card';
+            videoElement.innerHTML = `
+                <div class="video-thumbnail">
+                    <img src="${item.thumbnail}" alt="${item.title}" loading="lazy">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2 line-clamp-2">${item.title}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">${item.uploaderName}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-500">${item.views} views • ${item.uploadedDate || item.uploaded}</p>
+                </div>
+            `;
+            videoElement.addEventListener('click', () => playAudio(item.url, item.title, item.thumbnail));
+            resultsContainer.appendChild(videoElement);
+        }
+    });
+
+    // Remove the previous loading indicator if it exists
+    const oldLoadingIndicator = document.getElementById('loading-indicator');
+    if (oldLoadingIndicator) {
+        oldLoadingIndicator.remove();
+    }
+
+    // Add a new loading indicator and observe it
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.id = 'loading-indicator';
+    loadingIndicator.textContent = 'Loading more results...';
+    loadingIndicator.className = 'text-center text-gray-500 my-4';
+    resultsContainer.appendChild(loadingIndicator);
+
+    intersectionObserver.observe(loadingIndicator);
+}
+
+// Modify the searchForm event listener
+searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (query === '') return;
+    nextPageToken = null; // Reset the nextPageToken for a new search
+    performSearch(query);
+});
+
+    async function playAudio(videoUrl, title, thumbnailUrl) {
+        const videoId = videoUrl.split('v=')[1];
+        nowPlaying.textContent = `Loading audio for: ${title}`;
+
+        try {
+            const audioUrl = await fetchAudioUrlWithRetry(videoId);
+            audioPlayer.src = audioUrl;
+            await audioPlayer.play();
+            nowPlaying.textContent = `Now playing: ${title}`;
+            updateBackgroundColor(thumbnailUrl);
+        } catch (error) {
+            console.error('Error fetching or playing audio stream:', error);
+            nowPlaying.textContent = 'Error: Could not play audio. Click to retry.';
+            nowPlaying.onclick = () => playAudio(videoUrl, title, thumbnailUrl);
+        }
+    }
+
+    async function fetchAudioUrlWithRetry(videoId, retries = 3) {
+        const apis = [
+            { name: '1-a', fetch: fetchAceThinkerApiUrl },
+            { name: '2-p', fetch: fetchPipedApiUrl },
+            { name: '3-p', fetch: fetchSecondPipedApiUrl },
+            { name: '4', fetch: fetchNewApiUrl },
+            { name: '5', fetch: fetchCobaltApiUrl },
+            { name: '6', fetch: fetchYtdlOnlineUrl }
+        ];
+
+        for (let attempt = 0; attempt < retries; attempt++) {
+            for (const api of apis) {
+                try {
+                    console.log(`Attempting to fetch from ${api.name} API...`);
+                    const url = await api.fetch(videoId);
+                    if (url) {
+                        console.log(`Success! ${api.name} API returned a valid URL: ${url}`);
+                        return url;
+                    } else {
+                        console.log(`${api.name} API did not return a valid URL.`);
+                    }
+                } catch (error) {
+                    console.error(`Error fetching from ${api.name} API:`, error);
+                }
+            }
+            console.log(`Retrying in ${attempt + 1} seconds...`);
+            await new Promise(resolve => setTimeout(resolve, 100 * (attempt + 1)));
+        }
+        throw new Error('All APIs failed to provide a valid audio URL');
+    }
+
+    async function fetchPipedApiUrl(videoId) {
+        const response = await fetch(addCacheBuster(`https://pipedapi.reallyaweso.me/streams/${videoId}`), {
+            cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        const audioStream = data.audioStreams.find(stream => stream.mimeType.startsWith('audio/'));
+        return audioStream ? audioStream.url : null;
+    }
+
+    async function fetchSecondPipedApiUrl(videoId) {
+        const response = await fetch(addCacheBuster(`https://pipedapi.adminforge.de/streams/${videoId}`), {
+            cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        const audioStream = data.audioStreams.find(stream => stream.mimeType.startsWith('audio/'));
+        return audioStream ? audioStream.url : null;
+    }
+
+    async function fetchAceThinkerApiUrl(videoId) {
+        const encodedVideoId = encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`);
+        const apiUrl = `https://www.acethinker.com/downloader/api/video_info.php?url=${encodedVideoId}&israpid=1&ismp3=0`;
+
+        try {
+            const response = await fetch(addCacheBuster(apiUrl), {
+                cache: 'no-store'
+            });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            const m4aLink = data.links.flat().find(link => link.ext === 'm4a');
+            return m4aLink ? m4aLink.url : null;
+        } catch (error) {
+            console.error('Error fetching from AceThinker API:', error);
+            return null;
+        }
+    }
+
+    async function fetchNewApiUrl(videoId) {
+        const response = await fetch(addCacheBuster(`https://kityune.imput.net/api/json?id=${videoId}`), {
+            cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data.status === 'stream' && data.url ? data.url : null;
+    }
+
+    async function fetchCobaltApiUrl(videoId) {
+        const response = await fetch(addCacheBuster('https://api.cobalt.tools/api/json'), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: `https://www.youtube.com/watch?v=${videoId}`,
+                aFormat: "mp3",
+                isAudioOnly: true,
+                audioBitrate: 8000 
+            }),
+            cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data.audio || data.url || null;
+    }
+
+    async function fetchYtdlOnlineUrl(videoId) {
+        const response = await fetch(addCacheBuster(`https://api.allorigins.win/raw?url=https://ytdlp.online/stream?command=https://www.youtube.com/watch?v=${videoId} --get-url`), {
+            timeout: 1000,
+            cache: 'no-store'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const responseText = await response.text();
+        const urls = responseText.split('\n')
+            .filter(line => line.trim().startsWith('data:'))
+            .map(line => line.substring(5).trim())
+            .filter(url => url.startsWith('http'));
+        return urls.length >= 2 ? urls[1] : (urls.length === 1 ? urls[0] : null);
+    }
+
+    audioPlayer.addEventListener('error', (e) => {
+        console.error('Audio player error:', e);
+        nowPlaying.textContent = 'Error: Could not play audio. Click to retry.';
+        nowPlaying.onclick = () => {
+            const currentSrc = audioPlayer.src;
+            const currentTitle = nowPlaying.textContent.replace('Now playing: ', '');
+            playAudio(currentSrc, currentTitle);
+        };
+    });
+
+    darkModeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
+
+    window.addEventListener('load', () => {
+        setDefaultBackground();
+        createArtistElements();
+        fetchTrendingVideos();
+    });
+
+    audioPlayer.addEventListener('ended', setDefaultBackground);
+    </script>
+    
+    
+</body></html>
