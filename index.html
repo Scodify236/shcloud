@@ -274,7 +274,6 @@
                 artistElement.className = 'artist-item';
                 artistElement.innerHTML = `
                     <img src="${artist.image}" alt="${artist.name}" class="artist-image">
-                    <span class="artist-name text-sm font-medium">${artist.name}</span>
                 `;
                 artistElement.addEventListener('click', () => searchArtist(artist.name));
                 artistContainer.appendChild(artistElement);
