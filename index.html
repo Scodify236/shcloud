@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en" class="dark"><head>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.webp" type="image/webp">
@@ -11,26 +13,19 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: {"50":"#f0fdf4","100":"#dcfce7","200":"#bbf7d0","300":"#86efac","400":"#4ade80","500":"#22c55e","600":"#16a34a","700":"#15803d","800":"#166534","900":"#14532d","950":"#052e16"},
-                        youtube: {
-                            red: "#FF0000",
-                            darkRed: "#CC0000",
-                            lightGray: "#F1F1F1",
-                            darkGray: "#282828",
-                            black: "#0F0F0F"
-                        }
+                        primary: {"50":"#fff7ed","100":"#ffedd5","200":"#fed7aa","300":"#fdba74","400":"#fb923c","500":"#f97316","600":"#ea580c","700":"#c2410c","800":"#9a3412","900":"#7c2d12","950":"#431407"},
                     },
                     fontFamily: {
-                        'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'sans': ['Poppins', 'system-ui'],
                     },
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://c4.wallpaperflare.com/wallpaper/242/236/855/mountains-river-snow-forest-wallpaper-preview.jpg');
+            background-image: url('https://images.unsplash.com/photo-1614854262318-831574f15f1f?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -45,15 +40,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: inherit;
-            filter: blur(10px);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
             z-index: -1;
         }
 
         .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dark .glass {
@@ -63,63 +57,53 @@
         .search-container {
             display: flex;
             align-items: center;
-            border-radius: 9999px;
+            border-radius: 8px;
             overflow: hidden;
-            width: 100%;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .search-container:focus-within {
-            box-shadow: 0 0 0 3px rgba(241, 142, 3, 0.5);
+            border-color: rgba(249, 115, 22, 0.5);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
         }
 
         .search-input {
             flex-grow: 1;
             background-color: transparent;
-            padding: 0.75rem 1.25rem;
+            padding: 0.75rem 1rem;
             border: none;
             outline: none;
             width: 100%;
             font-size: 0.875rem;
         }
 
-        .search-button {
-            background: none;
-            border: none;
-            padding: 0.75rem 1.25rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
         .custom-audio-player {
-            width: 100%;
-            border-radius: 10px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .custom-audio-player audio {
-            width: 100%;
-            height: 40px;
+            border-radius: 8px;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .video-card {
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1.5rem;
         }
 
         .dark .video-card {
-            background-color: rgba(40, 40, 40, 0.7);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            border-color: rgba(249, 115, 22, 0.3);
         }
 
         .video-thumbnail {
@@ -135,138 +119,129 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .video-card:hover .video-thumbnail img {
-            transform: scale(1.05);
-        }
-
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .video-card:hover .play-icon {
-            opacity: 1;
-        }
-
-        .play-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: white;
         }
 
         .artist-section {
             display: flex;
             overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-            padding-bottom: 10px;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
         }
 
         .artist-section::-webkit-scrollbar {
-            display: none;  /* Chrome, Safari and Opera */
+            display: none;
         }
 
         .artist-item {
-            display: inline-block;
+            flex: 0 0 auto;
             text-align: center;
-            cursor: pointer;
             transition: transform 0.3s ease;
-            margin-right: 1rem;
-        }
-
-        .artist-item:hover {
-            transform: scale(1.03);
         }
 
         .artist-image {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 0.5rem;
+            border: 2px solid rgba(249, 115, 22, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .artist-item:hover .artist-image {
+            transform: scale(1.05);
+            border-color: rgba(249, 115, 22, 0.8);
         }
 
         .artist-name {
-            display: block;
-            width: 120px;
-            text-align: center;
-            white-space: normal;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            width: 80px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        audio {
+            height: 40px;
+            width: 90%;
+            margin: 0 auto;
+            display: block;
+            filter: invert(1) hue-rotate(180deg);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .container-width {
+            width: 90%;
+            max-width: 1800px;
+        }
+
+        .results-grid {
+            gap: 2rem;
         }
     </style>
 </head>
 <body class="text-gray-100 font-sans min-h-screen text-sm">
     <div class="relative z-10">
-        <header class="sticky top-0 z-50 glass w-full">
-            <div class="mx-auto px-4 py-4 flex items-center justify-between w-11/12">
-                <div class="flex items-center space-x-4">
-                    <img src="images/favicon.webp" alt="S-CLOUD Logo" class="w-12 h-12 rounded-full shadow-lg">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 glass">
+            <div class="mx-auto px-6 py-3 flex items-center justify-between container-width">
+                <div class="flex items-center space-x-3">
+                    <img src="images/favicon.webp" alt="T-CLOUD Logo" class="w-8 h-8 rounded-full shadow-lg">
                     <div>
-                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 text-transparent bg-clip-text">Trishul-Music</h1>
-                        <span class="text-xs text-gray-600 dark:text-gray-300">Made with ❤️ by Shashwat</span>
+                        <h1 class="text-lg font-semibold bg-gradient-to-r from-primary-400 to-primary-600 text-transparent bg-clip-text">Trishul-Music</h1>
+                        <span class="text-xs text-gray-400">Made with ❤️ by Shashwat</span>
                     </div>
                 </div>
-                <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-700/50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
                 </button>
             </div>
         </header>
 
-        <main class="mx-auto px-4 py-8 mb-24 w-11/12">
+        <!-- Main Content -->
+        <main class="mx-auto px-6 py-8 mb-24 container-width">
+            <!-- Search Form -->
             <form id="searchForm" class="mb-8">
-                <div class="search-container bg-white/30 dark:bg-black/30">
-                    <input type="text" id="searchInput" placeholder="Search for songs..." class="search-input text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
-                    <button type="button" id="clearSearch" class="search-button text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white">
+                <div class="search-container glass">
+                    <input type="text" id="searchInput" placeholder="Search for music..." class="search-input text-gray-100 placeholder-gray-400">
+                    <button type="button" id="clearSearch" class="px-3 text-gray-400 hover:text-primary-400 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
-                    <span class="search-divider text-gray-400">|</span>
-                    <button type="submit" id="searchButton" class="search-button text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white">
+                    <span class="w-px h-4 bg-gray-600"></span>
+                    <button type="submit" class="px-3 text-gray-400 hover:text-primary-400 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                     </button>
                 </div>
             </form>
 
+            <!-- Artists Section -->
             <section id="artistSection" class="mb-8">
-                <h2 class="text-3xl font-bold mb-4 text-primary-600 dark:text-primary-400">Popular Artists</h2>
+                <h2 class="text-xl font-semibold mb-6 text-primary-400">Popular Artists</h2>
                 <div class="artist-section">
                     <!-- Artist items will be dynamically added here -->
                 </div>
             </section>
 
-            <h2 id="resultsTitle" class="text-3xl font-bold mb-8 text-primary-600 dark:text-primary-400">Trending</h2>
-            <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"></div>
+            <!-- Results Section -->
+            <h2 id="resultsTitle" class="text-xl font-semibold mb-6 text-primary-400">Trending</h2>
+            <div id="results" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 results-grid"></div>
         </main>
 
+        <!-- Footer with Audio Player -->
         <footer class="fixed bottom-0 left-0 right-0 glass">
-            <div class="mx-auto px-2 py-2 w-11/12">
+            <div class="mx-auto px-6 py-4 container-width">
                 <div class="custom-audio-player">
-                    <audio id="audioPlayer" controls class="w-full"></audio>
+                    <audio id="audioPlayer" controls class="w-90"></audio>
                 </div>
-                <div id="nowPlaying" class="text-center font-semibold text-[11px] truncate text-orange-500 dark:text-orange-400 mt-2"></div>
+                <div id="nowPlaying" class="text-center text-sm font-medium text-primary-400 mt-2"></div>
             </div>
         </footer>
     </div>
