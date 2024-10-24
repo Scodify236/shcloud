@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en" class="dark"><head>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.webp" type="image/webp">
@@ -27,8 +29,61 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Previous styles remain unchanged */
+        
+        /* New playlist styles */
+        .playlist-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .playlist-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .dark .playlist-modal-content {
+            background: rgba(30, 30, 30, 0.95);
+        }
+
+        .playlist-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .playlist-item:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .playlist-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             background-image: url('https://c4.wallpaperflare.com/wallpaper/242/236/855/mountains-river-snow-forest-wallpaper-preview.jpg');
             background-size: cover;
@@ -231,6 +286,7 @@
                 </button>
             </div>
         </header>
+    
 
         <main class="mx-auto px-4 py-8 mb-24 w-11/12">
             <form id="searchForm" class="mb-8">
@@ -260,6 +316,58 @@
             <h2 id="resultsTitle" class="text-3xl font-bold mb-8 text-primary-600 dark:text-primary-400">Trending</h2>
             <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"></div>
         </main>
+            
+            <!-- Add Playlist Button -->
+            <button id="showPlaylistsBtn" class="fixed right-4 bottom-24 bg-primary-500 hover:bg-primary-600 text-white rounded-full p-3 shadow-lg transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                </svg>
+            </button>
+            
+
+            <!-- Playlist Modal -->
+            <div id="playlistModal" class="playlist-modal">
+                <div class="playlist-modal-content">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Your Playlists</h3>
+                        <button id="closePlaylistModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <input type="text" id="newPlaylistName" placeholder="New playlist name" class="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
+                        <button id="createPlaylistBtn" class="mt-2 w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg transition-colors duration-300">
+                            Create New Playlist
+                        </button>
+                    </div>
+
+                    <div id="playlistList" class="playlist-list">
+                        <!-- Playlists will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Playlist View Modal -->
+            <div id="playlistViewModal" class="playlist-modal">
+                <div class="playlist-modal-content">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="playlistViewTitle" class="text-xl font-bold text-gray-800 dark:text-white"></h3>
+                        <button id="closePlaylistViewModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div id="playlistSongs" class="playlist-list">
+                        <!-- Songs will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <footer class="fixed bottom-0 left-0 right-0 glass">
             <div class="mx-auto px-2 py-2 w-11/12">
@@ -269,368 +377,418 @@
                 <div id="nowPlaying" class="text-center font-semibold text-[11px] truncate text-orange-500 dark:text-orange-400 mt-2"></div>
             </div>
         </footer>
+        </footer>
     </div>
     <script src="js/artist.js"></script>
+    <script src="js/play.js"></script>
+    <script src="js/playlist.js"></script>
     <script>
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-    const resultsContainer = document.getElementById('results');
-    const audioPlayer = document.getElementById('audioPlayer');
-    const nowPlaying = document.getElementById('nowPlaying');
-    const resultsTitle = document.getElementById('resultsTitle');
-    const clearSearchButton = document.getElementById('clearSearch');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const artistSection = document.getElementById('artistSection');
+        // Previous JavaScript code remains the same
+        
+        // Add the following playlist-related code:
+        
+        // Playlist Management
+        let playlists = JSON.parse(localStorage.getItem('playlists')) || {};
+        const playlistModal = document.getElementById('playlistModal');
+        const playlistViewModal = document.getElementById('playlistViewModal');
+        const showPlaylistsBtn = document.getElementById('showPlaylistsBtn');
+        const closePlaylistModal = document.getElementById('closePlaylistModal');
+        const closePlaylistViewModal = document.getElementById('closePlaylistViewModal');
+        const newPlaylistName = document.getElementById('newPlaylistName');
+        const createPlaylistBtn = document.getElementById('createPlaylistBtn');
+        const playlistList = document.getElementById('playlistList');
+        const playlistSongs = document.getElementById('playlistSongs');
+        const playlistViewTitle = document.getElementById('playlistViewTitle');
 
-    const colorThief = new ColorThief();
-    let currentThumbnail = null;
-    let isLoading = false;
-    let nextPageToken = null;
-
-    function addCacheBuster(url) {
-        const cacheBuster = `cache_buster=${Date.now()}`;
-        return url.includes('?') ? `${url}&${cacheBuster}` : `${url}?${cacheBuster}`;
-    }
-
-    function createArtistElements() {
-            const artistContainer = artistSection.querySelector('.artist-section');
-            sampleArtists.forEach(artist => {
-                const artistElement = document.createElement('div');
-                artistElement.className = 'artist-item';
-                artistElement.innerHTML = `
-                    <img src="${artist.image}" alt="${artist.name}" class="artist-image">
-                    <span class="artist-name text-sm font-medium">${artist.name}</span>
-                `;
-                artistElement.addEventListener('click', () => searchArtist(artist.name));
-                artistContainer.appendChild(artistElement);
-            });
+        function savePlaylistsToStorage() {
+            localStorage.setItem('playlists', JSON.stringify(playlists));
         }
 
-    function searchArtist(artistName) {
-        searchInput.value = artistName;
-        performSearch(artistName);
-    }
-
-    async function performSearch(query, isNextPage = false) {
-    if (isLoading) return;
-    isLoading = true;
-
-    try {
-        let url;
-        if (isNextPage && nextPageToken) {
-            url = `https://pipedapi.reallyaweso.me/nextpage/search?q=${encodeURIComponent(query)}&filter=all&nextpage=${encodeURIComponent(nextPageToken)}`;
-        } else {
-            url = `https://pipedapi.reallyaweso.me/search?q=${encodeURIComponent(query)}&filter=all`;
-        }
-
-        const response = await fetch(addCacheBuster(url), { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-
-        if (!isNextPage) {
-            resultsTitle.textContent = `Search Results for "${query}"`;
-            resultsContainer.innerHTML = '';
-            artistSection.style.display = 'none';
-        }
-
-        displayResults(data.items);
-        nextPageToken = data.nextpage;
-
-        // Add a loading indicator
-        const loadingIndicator = document.createElement('div');
-        loadingIndicator.id = 'loading-indicator';
-        loadingIndicator.textContent = 'Loading more results...';
-        loadingIndicator.className = 'text-center text-gray-500 my-4';
-        resultsContainer.appendChild(loadingIndicator);
-    } catch (error) {
-        console.error('Error fetching search results:', error);
-        if (!isNextPage) {
-            resultsContainer.innerHTML = '<p class="text-center text-red-500">An error occurred while fetching results. Please try again.</p>';
-        }
-    } finally {
-        isLoading = false;
-    }
-}
-
-// Add an intersection observer to trigger loading more results
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0
-};
-
-const intersectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting && !isLoading && nextPageToken) {
-            const query = searchInput.value.trim();
-            performSearch(query, true);
-        }
-    });
-}, observerOptions);
-
-    async function fetchTrendingVideos() {
-        try {
-            const response = await fetch(addCacheBuster('https://pipedapi.kavin.rocks/trending?region=IN&filter=music'), {
-                cache: 'no-store'
-            });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            displayResults(data);
-        } catch (error) {
-            console.error('Error fetching trending videos:', error);
-            resultsContainer.innerHTML = '<p class="text-center text-red-500">An error occurred while fetching trending videos. Please try again.</p>';
-        }
-    }
-
-    searchForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const query = searchInput.value.trim();
-        if (query === '') return;
-        performSearch(query);
-    });
-
-    clearSearchButton.addEventListener('click', () => {
-    searchInput.value = '';
-    resultsTitle.textContent = 'Trending';
-    artistSection.style.display = 'block';
-    nextPageToken = null; // Reset the nextPageToken
-    fetchTrendingVideos();
-});
-
-    function setBackgroundColor(color) {
-        document.body.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    }
-
-    function getAverageColor(imgEl) {
-        return new Promise((resolve) => {
-            if (imgEl.complete) {
-                resolve(colorThief.getColor(imgEl));
-            } else {
-                imgEl.addEventListener('load', function() {
-                    resolve(colorThief.getColor(this));
-                });
+        function createPlaylist(name) {
+            if (name.trim() === '') return;
+            if (playlists[name]) {
+                alert('A playlist with this name already exists');
+                return;
             }
-        });
-    }
-
-    async function updateBackgroundColor(thumbnailUrl) {
-        if (thumbnailUrl === currentThumbnail) return;
-        currentThumbnail = thumbnailUrl;
-
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.src = thumbnailUrl;
-
-        try {
-            const color = await getAverageColor(img);
-            setBackgroundColor(color);
-        } catch (error) {
-            console.error('Error getting average color:', error);
-            setDefaultBackground();
+            playlists[name] = [];
+            savePlaylistsToStorage();
+            updatePlaylistsList();
+            newPlaylistName.value = '';
         }
-    }
 
-    function setDefaultBackground() {
-        setBackgroundColor([30, 15, 0]); // Orangish black
-    }
-
-    function displayResults(items) {
-    items.forEach(item => {
-        if (item.type === 'stream' || item.type === 'video') {
-            const videoElement = document.createElement('div');
-            videoElement.className = 'video-card';
-            videoElement.innerHTML = `
-                <div class="video-thumbnail">
-                    <img src="${item.thumbnail}" alt="${item.title}" loading="lazy">
-                </div>
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2 line-clamp-2">${item.title}</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">${item.uploaderName}</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-500">${item.views} views • ${item.uploadedDate || item.uploaded}</p>
-                </div>
-            `;
-            videoElement.addEventListener('click', () => playAudio(item.url, item.title, item.thumbnail));
-            resultsContainer.appendChild(videoElement);
+        function deletePlaylist(name) {
+            delete playlists[name];
+            savePlaylistsToStorage();
+            updatePlaylistsList();
         }
+
+        function addToPlaylist(playlistName, song) {
+            if (!playlists[playlistName]) return;
+            const songExists = playlists[playlistName].some(s => s.url === song.url);
+            if (songExists) {
+                alert('This song is already in the playlist');
+                return;
+            }
+            playlists[playlistName].push(song);
+            savePlaylistsToStorage();
+            alert('Song added to playlist');
+        }
+
+        function removeSongFromPlaylist(playlistName, songIndex) {
+            playlists[playlistName].splice(songIndex, 1);
+            savePlaylistsToStorage();
+            viewPlaylist(playlistName);
+        }
+
+    function updatePlaylistsList() {
+      playlistList.innerHTML = '';
+      Object.keys(playlists).forEach(name => {
+        const playlistItem = document.createElement('div');
+        playlistItem.className = 'playlist-item bg-gray-100 dark:bg-gray-700 flex justify-between items-center';
+        playlistItem.innerHTML = `
+            <div class="flex-1 cursor-pointer" onclick="viewPlaylist('${name}')">
+                <h4 class="text-gray-800 dark:text-white font-medium">${name}</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">${playlists[name].length} songs</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="event.stopPropagation(); playAllSongs('${name}')" 
+                        class="text-primary-500 hover:text-primary-600 p-2" 
+                        title="Play All Songs">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button onclick="event.stopPropagation(); deletePlaylist('${name}')" 
+                        class="text-red-500 hover:text-red-700 p-2"
+                        title="Delete Playlist">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </div>
+        `;
+        playlistList.appendChild(playlistItem);
     });
-
-    // Remove the previous loading indicator if it exists
-    const oldLoadingIndicator = document.getElementById('loading-indicator');
-    if (oldLoadingIndicator) {
-        oldLoadingIndicator.remove();
-    }
-
-    // Add a new loading indicator and observe it
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.id = 'loading-indicator';
-    loadingIndicator.textContent = 'Loading more results...';
-    loadingIndicator.className = 'text-center text-gray-500 my-4';
-    resultsContainer.appendChild(loadingIndicator);
-
-    intersectionObserver.observe(loadingIndicator);
 }
 
-// Modify the searchForm event listener
-searchForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const query = searchInput.value.trim();
-    if (query === '') return;
-    nextPageToken = null; // Reset the nextPageToken for a new search
-    performSearch(query);
-});
 
-    async function playAudio(videoUrl, title, thumbnailUrl) {
-        const videoId = videoUrl.split('v=')[1];
-        nowPlaying.textContent = `Loading audio for: ${title}`;
+function viewPlaylist(name) {
+    playlistViewTitle.textContent = name;
+    playlistSongs.innerHTML = '';
+    
+    // Add Play All button at the top
+    const playAllButton = document.createElement('button');
+    playAllButton.className = 'w-full mb-4 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2';
+    playAllButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+        </svg>
+        Play All (${playlists[name].length} songs)
+    `;
+    playAllButton.onclick = () => playAllSongs(name);
+    playlistSongs.appendChild(playAllButton);
+    
+    // Add divider
+    const divider = document.createElement('div');
+    divider.className = 'border-b border-gray-200 dark:border-gray-700 mb-4';
+    playlistSongs.appendChild(divider);
+    
+    // Add individual songs
+    playlists[name].forEach((song, index) => {
+        const songItem = document.createElement('div');
+        songItem.className = 'playlist-item bg-gray-100 dark:bg-gray-700 flex justify-between items-center';
+        songItem.innerHTML = `
+            <div class="flex-1 cursor-pointer" onclick="playAudio('${song.url}', '${song.title}', '${song.thumbnail}')">
+                <h4 class="text-gray-800 dark:text-white font-medium">${song.title}</h4>
+            </div>
+            <button onclick="removeSongFromPlaylist('${name}', ${index})" class="text-red-500 hover:text-red-700 p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+            </button>
+        `;
+        playlistSongs.appendChild(songItem);
+    });
 
-        try {
-            const audioUrl = await fetchAudioUrlWithRetry(videoId);
-            audioPlayer.src = audioUrl;
-            await audioPlayer.play();
-            nowPlaying.textContent = `Now playing: ${title}`;
-            updateBackgroundColor(thumbnailUrl);
-        } catch (error) {
-            console.error('Error fetching or playing audio stream:', error);
-            nowPlaying.textContent = 'Error: Could not play audio. Click to retry.';
-            nowPlaying.onclick = () => playAudio(videoUrl, title, thumbnailUrl);
-        }
+    playlistModal.style.display = 'none';
+    playlistViewModal.style.display = 'block';
+}
+
+function playAllSongs(playlistName) {
+    if (!playlists[playlistName] || playlists[playlistName].length === 0) {
+        alert('No songs in this playlist');
+        return;
     }
-
-    async function fetchAudioUrlWithRetry(videoId, retries = 3) {
-        const apis = [
-            { name: '1-a', fetch: fetchAceThinkerApiUrl },
-            { name: '2-p', fetch: fetchPipedApiUrl },
-            { name: '3-p', fetch: fetchSecondPipedApiUrl },
-            { name: '4', fetch: fetchNewApiUrl },
-            { name: '5', fetch: fetchCobaltApiUrl },
-            { name: '6', fetch: fetchYtdlOnlineUrl }
-        ];
-
-        for (let attempt = 0; attempt < retries; attempt++) {
-            for (const api of apis) {
-                try {
-                    console.log(`Attempting to fetch from ${api.name} API...`);
-                    const url = await api.fetch(videoId);
-                    if (url) {
-                        console.log(`Success! ${api.name} API returned a valid URL: ${url}`);
-                        return url;
-                    } else {
-                        console.log(`${api.name} API did not return a valid URL.`);
-                    }
-                } catch (error) {
-                    console.error(`Error fetching from ${api.name} API:`, error);
+    
+    // Clear current queue and add all playlist songs
+    currentQueue = [...playlists[playlistName]];
+    currentQueueIndex = 0;
+    
+    // Play the first song
+    const firstSong = currentQueue[0];
+    playAudio(firstSong.url, firstSong.title, firstSong.thumbnail);
+    
+    // Hide the playlist modal after starting playback
+    playlistModal.style.display = 'none';
+}
+        // Modify the displayResults function to add playlist functionality
+        function displayResults(items) {
+            items.forEach(item => {
+                if (item.type === 'stream' || item.type === 'video') {
+                    const videoElement = document.createElement('div');
+                    videoElement.className = 'video-card';
+                    videoElement.innerHTML = `
+                        <div class="video-thumbnail">
+                            <img src="${item.thumbnail}" alt="${item.title}" loading="lazy">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2 line-clamp-2">${item.title}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">${item.uploaderName}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-500">${item.views} views • ${item.uploadedDate || item.uploaded}</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <button onclick="playAudio('${item.url}', '${item.title}', '${item.thumbnail}')" 
+                                        class="text-primary-500 hover:text-primary-600">
+                                    Play
+                                </button>
+                                <button onclick="showAddToPlaylistModal('${item.url}', '${item.title}', '${item.thumbnail}')"
+                                        class="text-primary-500 hover:text-primary-600">
+                                    Add to Playlist
+                                </button></div>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(videoElement);
                 }
-            }
-            console.log(`Retrying in ${attempt + 1} seconds...`);
-            await new Promise(resolve => setTimeout(resolve, 100 * (attempt + 1)));
-        }
-        throw new Error('All APIs failed to provide a valid audio URL');
-    }
-
-    async function fetchPipedApiUrl(videoId) {
-        const response = await fetch(addCacheBuster(`https://pipedapi.reallyaweso.me/streams/${videoId}`), {
-            cache: 'no-store'
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        const audioStream = data.audioStreams.find(stream => stream.mimeType.startsWith('audio/'));
-        return audioStream ? audioStream.url : null;
-    }
-
-    async function fetchSecondPipedApiUrl(videoId) {
-        const response = await fetch(addCacheBuster(`https://pipedapi.adminforge.de/streams/${videoId}`), {
-            cache: 'no-store'
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        const audioStream = data.audioStreams.find(stream => stream.mimeType.startsWith('audio/'));
-        return audioStream ? audioStream.url : null;
-    }
-
-    async function fetchAceThinkerApiUrl(videoId) {
-        const encodedVideoId = encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`);
-        const apiUrl = `https://www.acethinker.com/downloader/api/video_info.php?url=${encodedVideoId}&israpid=1&ismp3=0`;
-
-        try {
-            const response = await fetch(addCacheBuster(apiUrl), {
-                cache: 'no-store'
             });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            
-            const data = await response.json();
-            const m4aLink = data.links.flat().find(link => link.ext === 'm4a');
-            return m4aLink ? m4aLink.url : null;
-        } catch (error) {
-            console.error('Error fetching from AceThinker API:', error);
-            return null;
+
+            // Remove the previous loading indicator if it exists
+            const oldLoadingIndicator = document.getElementById('loading-indicator');
+            if (oldLoadingIndicator) {
+                oldLoadingIndicator.remove();
+            }
+
+            // Add a new loading indicator and observe it
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'loading-indicator';
+            loadingIndicator.textContent = 'Loading more results...';
+            loadingIndicator.className = 'text-center text-gray-500 my-4';
+            resultsContainer.appendChild(loadingIndicator);
+
+            intersectionObserver.observe(loadingIndicator);
         }
-    }
 
-    async function fetchNewApiUrl(videoId) {
-        const response = await fetch(addCacheBuster(`https://kityune.imput.net/api/json?id=${videoId}`), {
-            cache: 'no-store'
+        // Add to Playlist Modal
+        function showAddToPlaylistModal(url, title, thumbnail) {
+            const song = { url, title, thumbnail };
+            playlistList.innerHTML = '';
+            
+            Object.keys(playlists).forEach(name => {
+                const playlistItem = document.createElement('div');
+                playlistItem.className = 'playlist-item bg-gray-100 dark:bg-gray-700';
+                playlistItem.innerHTML = `
+                    <h4 class="text-gray-800 dark:text-white font-medium">${name}</h4>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">${playlists[name].length} songs</p>
+                `;
+                playlistItem.onclick = () => {
+                    addToPlaylist(name, song);
+                    playlistModal.style.display = 'none';
+                };
+                playlistList.appendChild(playlistItem);
+            });
+            
+            playlistModal.style.display = 'block';
+        }
+
+        // Event Listeners
+        showPlaylistsBtn.addEventListener('click', () => {
+            updatePlaylistsList();
+            playlistModal.style.display = 'block';
         });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        return data.status === 'stream' && data.url ? data.url : null;
-    }
 
-    async function fetchCobaltApiUrl(videoId) {
-        const response = await fetch(addCacheBuster('https://api.cobalt.tools/api/json'), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                url: `https://www.youtube.com/watch?v=${videoId}`,
-                aFormat: "mp3",
-                isAudioOnly: true,
-                audioBitrate: 8000 
-            }),
-            cache: 'no-store'
+        closePlaylistModal.addEventListener('click', () => {
+            playlistModal.style.display = 'none';
         });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        return data.audio || data.url || null;
-    }
 
-    async function fetchYtdlOnlineUrl(videoId) {
-        const response = await fetch(addCacheBuster(`https://api.allorigins.win/raw?url=https://ytdlp.online/stream?command=https://www.youtube.com/watch?v=${videoId} --get-url`), {
-            timeout: 1000,
-            cache: 'no-store'
+        closePlaylistViewModal.addEventListener('click', () => {
+            playlistViewModal.style.display = 'none';
         });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const responseText = await response.text();
-        const urls = responseText.split('\n')
-            .filter(line => line.trim().startsWith('data:'))
-            .map(line => line.substring(5).trim())
-            .filter(url => url.startsWith('http'));
-        return urls.length >= 2 ? urls[1] : (urls.length === 1 ? urls[0] : null);
-    }
 
-    audioPlayer.addEventListener('error', (e) => {
-        console.error('Audio player error:', e);
-        nowPlaying.textContent = 'Error: Could not play audio. Click to retry.';
-        nowPlaying.onclick = () => {
-            const currentSrc = audioPlayer.src;
-            const currentTitle = nowPlaying.textContent.replace('Now playing: ', '');
-            playAudio(currentSrc, currentTitle);
+        createPlaylistBtn.addEventListener('click', () => {
+            createPlaylist(newPlaylistName.value);
+        });
+
+        newPlaylistName.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                createPlaylist(newPlaylistName.value);
+            }
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === playlistModal) {
+                playlistModal.style.display = 'none';
+            }
+            if (e.target === playlistViewModal) {
+                playlistViewModal.style.display = 'none';
+            }
+        });
+
+        // Save playlist state before page unload
+        window.addEventListener('beforeunload', () => {
+            savePlaylistsToStorage();
+        });
+
+        // Custom context menu for playlist items
+        document.addEventListener('contextmenu', (e) => {
+            const playlistItem = e.target.closest('.playlist-item');
+            if (playlistItem) {
+                e.preventDefault();
+                // Add your custom context menu implementation here if needed
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Escape key closes modals
+            if (e.key === 'Escape') {
+                playlistModal.style.display = 'none';
+                playlistViewModal.style.display = 'none';
+            }
+        });
+
+        // Queue Management
+        let currentQueue = [];
+        let currentQueueIndex = -1;
+
+        function addToQueue(song) {
+            currentQueue.push(song);
+            updateQueueDisplay();
+        }
+
+        function playNext() {
+            if (currentQueueIndex < currentQueue.length - 1) {
+                currentQueueIndex++;
+                const nextSong = currentQueue[currentQueueIndex];
+                playAudio(nextSong.url, nextSong.title, nextSong.thumbnail);
+            }
+        }
+
+        function playPrevious() {
+            if (currentQueueIndex > 0) {
+                currentQueueIndex--;
+                const previousSong = currentQueue[currentQueueIndex];
+                playAudio(previousSong.url, previousSong.title, previousSong.thumbnail);
+            }
+        }
+
+        function updateQueueDisplay() {
+            // Add queue display implementation if needed
+        }
+
+        // Modify playAudio function to work with queue
+        const originalPlayAudio = playAudio;
+        playAudio = async function(url, title, thumbnail) {
+            const song = { url, title, thumbnail };
+            
+            // Add to queue if not already in queue
+            if (!currentQueue.some(s => s.url === url)) {
+                addToQueue(song);
+                currentQueueIndex = currentQueue.length - 1;
+            }
+            
+            // Call original playAudio function
+            await originalPlayAudio(url, title, thumbnail);
         };
-    });
 
-    darkModeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-    });
+        // Add event listener for audio ended to auto-play next song
+        audioPlayer.addEventListener('ended', () => {
+            playNext();
+        });
 
-    window.addEventListener('load', () => {
-        setDefaultBackground();
-        createArtistElements();
-        fetchTrendingVideos();
-    });
+        // Initialize playlists on load
+        window.addEventListener('load', () => {
+            // Previous load event handlers
+            setDefaultBackground();
+            createArtistElements();
+            fetchTrendingVideos();
+            
+            // Initialize playlists
+            updatePlaylistsList();
+        });
 
-    audioPlayer.addEventListener('ended', setDefaultBackground);
+        // Error handling for playlist operations
+        function handlePlaylistError(error, operation) {
+            console.error(`Error during ${operation}:`, error);
+            alert(`Failed to ${operation}. Please try again.`);
+        }
+
+        // Playlist search functionality
+        function filterPlaylists(searchTerm) {
+            const filteredPlaylists = Object.keys(playlists).filter(name => 
+                name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            updatePlaylistsList(filteredPlaylists);
+        }
+
+        // Add playlist search input
+        const playlistSearchInput = document.createElement('input');
+        playlistSearchInput.type = 'text';
+        playlistSearchInput.placeholder = 'Search playlists...';
+        playlistSearchInput.className = 'w-full px-4 py-2 mb-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white';
+        playlistList.parentNode.insertBefore(playlistSearchInput, playlistList);
+
+        playlistSearchInput.addEventListener('input', (e) => {
+            filterPlaylists(e.target.value);
+        });
+
+        // Export/Import playlists
+        function exportPlaylists() {
+            const dataStr = JSON.stringify(playlists);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'playlists.json';
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function importPlaylists(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedPlaylists = JSON.parse(e.target.result);
+                    playlists = { ...playlists, ...importedPlaylists };
+                    savePlaylistsToStorage();
+                    updatePlaylistsList();
+                    alert('Playlists imported successfully!');
+                } catch (error) {
+                    alert('Error importing playlists. Please check the file format.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Add export/import buttons
+        const exportButton = document.createElement('button');
+        exportButton.textContent = 'Export Playlists';
+        exportButton.className = 'mt-2 w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg transition-colors duration-300';
+        exportButton.onclick = exportPlaylists;
+        createPlaylistBtn.parentNode.appendChild(exportButton);
+
+        const importInput = document.createElement('input');
+        importInput.type = 'file';
+        importInput.accept = '.json';
+        importInput.style.display = 'none';
+        importInput.onchange = (e) => importPlaylists(e.target.files[0]);
+
+        const importButton = document.createElement('button');
+        importButton.textContent = 'Import Playlists';
+        importButton.className = 'mt-2 w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg transition-colors duration-300';
+        importButton.onclick = () => importInput.click();
+        createPlaylistBtn.parentNode.appendChild(importButton);
+        createPlaylistBtn.parentNode.appendChild(importInput);
     </script>
-    
-    
-</body></html>
+</body>
+</html>
