@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -8,10 +9,64 @@
      <script>
       window.rhApi = 'https://shashwat-coding.github.io/Shashwat-CODER-Music/list1.json';
       </script>
+      <style>/* Add this to your CSS file */
+        #popularArtists {
+            width: 100%;
+            overflow-x: auto;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+        
+        .artist-row {
+            gap: 20px;
+            align-items: center;
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+        
+        .artist-item {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            width: 120px;
+            text-align: center;
+        }
+        
+        .artist-item img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .artist-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .artist-item span {
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            font-weight: 500;
+        }
+        
+        /* Ensure horizontal scrolling on smaller screens */
+        @media (max-width: 768px) {
+            .artist-row {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+        }</style>
 
   <meta name="description"
-    content="48kb/s to 320kb/s music streaming website. Copy a youtube video link or search a video up and listen to it as an audio totally free. Background Playback, Queues, Themes for a great user experience.">
-  <meta name="author" content="Shashwat">
+    content="48kb/s to 160kb/s youtube audio streaming website. Copy a youtube video link or search a video up and listen to it as an audio totally free. Background Playback, Queues, Themes for a great user experience.">
+  <meta name="author" content="n-ce">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="white">
   <meta name="mobile-web-app-capable" content="yes">
@@ -23,9 +78,9 @@
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="raagheaven">
-  <meta property="og:url" content="https://shcloud.netlify.app">
+  <meta property="og:url" content="https://raagheaven.netlify.app">
   <meta property="og:site_name" content="raagheaven">
-  <meta property="og:description" content="48-320kbps Opus YouTube Audio Streaming Web App.">
+  <meta property="og:description" content="48-160kbps Opus YouTube Audio Streaming Web App.">
   <meta property="og:image" content="/rh_thumbnail_min.webp">
   <!-- a4 -->
 
@@ -187,6 +242,7 @@
 
     <section id="search">
       <form id="superInputContainer">
+        
         <input type="search" id="superInput" autocomplete="off"
           placeholder='Search or enter YouTube URL             CTRL+K' />
         <select id="searchFilters" class="hide">
@@ -211,27 +267,67 @@
       </form>
       <ul id="suggestions"></ul>
       <div id="searchlist">
-        <p style="
-        background:url('/rh_banner.webp') center;
-        padding: 5vmin;
-        box-shadow: var(--shadow);
-        border-radius: var(--roundness);
-        background-size:cover;
-        color:white;
-         " align="center">
-          <b style="
-          display:block;
-          backdrop-filter: blur(2px);
-          ">
-            Welcome to Raag Heaven. Get more such apps <a href="https://scodify236.github.io/download"
-              style="text-decoration: underline;" target="_blank">here</a>.
-          </b>
-        </p>
-        <p
-          style="background: linear-gradient(to bottom right,rgba(113, 196, 255, 0.4),rgba(61, 95, 249, 0.6));border-radius:var(--roundness);font-size:large;padding:5vmin;box-shadow:var(--shadow);margin:5% 0;text-align-last: center;">Made with ❤️ for you. If you want to connect to me click <a href="https://shcloud.netlify.app/cont.html"
-              style="text-decoration: underline;" target="_blank">here</a>.
-        </p>
       </div>
+      <!-- Popular artists -->
+  <div id="popularArtists">
+    <div class="artist-row">
+        <div class="artist-item" data-artist="A.R. Rahman" onclick="window.location.href='/list?channel=UC3mb5QRlm4VQmOZD_P0ctGw'">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBy9yNSritHoVpM2NTY9-AmZTn15q_2IUoyw&s" alt="A.R. Rahman" />
+            <span>A.R. Rahman</span>
+        </div>
+        <div class="artist-item" data-artist="Arijit Singh" onclick="window.location.href='/list?channel=UCtFOW7jJXChfFNoucRFqRmw'">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEaO9oNwP0hT6rCxrP1_xtB2Q_ORBTsB3cmw&s" alt="Arijit Singh" />
+            <span>Arijit Singh</span>
+        </div>
+        <div class="artist-item" data-artist="Shreya Ghoshal" onclick="window.location.href='/list?channel=UCcL78rRNuUQ8t7Dx4CLmRqA'">
+            <img src="https://i.scdn.co/image/ab6761610000517436a7262247318ff0f1ad00da" alt="Shreya Ghoshal" />
+            <span>Shreya Ghoshal</span>
+        </div>
+        <div class="artist-item" data-artist="Pritam" onclick="window.location.href='/list?channel=UCFrjzbol2Zy-FaKaCIKIDVA'">
+            <img src="https://i.scdn.co/image/ab6761610000e5ebcb6926f44f620555ba444fca" alt="Pritam" />
+            <span>Pritam</span>
+        </div>
+        <div class="artist-item" data-artist="Sonu Nigam" onclick="window.location.href='/list?channel=UCDYFISYJx2tSc6cyhvx0N5Q'">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSt7iziufhnBLORGBl3XpAvLWJe-yl_853OQ&s" alt="Sonu Nigam" />
+            <span>Sonu Nigam</span>
+        </div>
+        <div class="artist-item" data-artist="Sidhu moose wala" onclick="window.location.href='/list?channel=UC9ChdqQRCaZmTCwSJ49tcbw'">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmqV--ZswiBYE51mONPtphc6iWd6CM8t8y5w&s" alt="Sonu Nigam" />
+          <span>Sidhu moose wala</span>
+      </div>
+      <div class="artist-item" data-artist="Diljit Dosanjh" onclick="window.location.href='/list?channel=UCZRdNleCgW-BGUJf-bbjzQg'">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2zt0VtorPuPmbB4AiR4SP3l1jcDrLLT3ZGQ&s" alt="Sonu Nigam" />
+        <span>Diljit Dosanjh</span>
+    </div>
+    <div class="artist-item" data-artist="Udit Narayan" onclick="window.location.href='/list?channel=UCrYczeBh8tcxLLAgn8m2wWQ'">
+      <img src="https://m.economictimes.com/thumb/msid-94687190,width-1200,height-900,resizemode-4,imgsize-29224/udit-narayan-canva.jpg" alt="Sonu Nigam" />
+      <span>Udit Narayan</span>
+  </div>
+  <div class="artist-item" data-artist="Deep Jhandu" onclick="window.location.href='/list?channel=UClZF7OsrECe3t_ADrjZEh_Q'">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfPAqL5_nVKBuZOWJDMfsk5xshHI1N_OVReA&s" alt="Sonu Nigam" />
+    <span>Deep Jhandu</span>
+</div>
+<div class="artist-item" data-artist="Lata Mangeshkar" onclick="window.location.href='/search?q=Lata%20Mangeshkar'">
+  <img src="https://img.wynk.in/unsafe/200x200/filters:no_upscale():strip_exif():format(jpg)/http://s3.ap-south-1.amazonaws.com/discovery-prod-zion/zion/1696453031994-Lata.png" alt="Sonu Nigam" />
+  <span>Lata Mangeshkar</span>
+</div>
+<div class="artist-item" data-artist="M. S. Subbulakshmi" onclick="window.location.href='/search?q=M.%20S.%20Subbulakshmi'">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY_Neq5m3OwebKp0iIpfKsxJ6nxUpMvRsMAQ&s" alt="Sonu Nigam" />
+  <span>M. S. Subbulakshmi</span>
+</div>
+<div class="artist-item" data-artist="Kishore Kumar" onclick="window.location.href='/search?q=Kishore%20Kumar'">
+  <img src="https://i.scdn.co/image/ab6761610000e5ebc9ac92d87de28795c1c49730" alt="Sonu Nigam" />
+  <span>Kishore Kumar</span>
+</div>
+<div class="artist-item" data-artist="Asha Bhosle" onclick="window.location.href='/search?q=Asha%20Bhosle'">
+  <img src="https://m.media-amazon.com/images/M/MV5BNzVlYmY0MjctMTVkYy00YTdiLThkN2MtMTc2OWU3YTFkZmM3XkEyXkFqcGc@._V1_.jpg" alt="Sonu Nigam" />
+  <span>Asha Bhosle</span>
+</div>
+<div class="artist-item" data-artist="Benny Dayal" onclick="window.location.href='/list?channel=UC9g9IPdlT4BSdZA9WQ6O3-A'">
+  <img src="https://media.insider.in/image/upload/c_crop,g_custom/v1603205874/ra6opnq9ifvvbzoangia.png" alt="Sonu Nigam" />
+  <span>Benny Dayal</span>
+</div>
+</div>
       
     </section>
 
