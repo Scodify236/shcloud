@@ -13,15 +13,18 @@ export const generateImageUrl = (
   res: string,
   music: string = ''
 ) => 'https://wsrv.nl?url=https://' + (id.startsWith('/') ?
-  `yt3.googleusercontent.com${id}=s720-c-k-c0x00ffffff-no-rj&output=webp&w=360` :
+  `yt3.googleusercontent.com${id}=s720-c-k-c0x00ffffff-no-rj&output=webp&w=${res === 'mq' ? '180' : '360'}` :
   `i.ytimg.com/vi_webp/${id}/${res}default.webp${music}`);
 
 
 
 export function getThumbIdFromLink(url: string) {
+  
+  if (url.length < 37 && url.startsWith('https://i.ytimg.com/vi/'))
+    url = url.slice(23,34);
 
-  if (url.startsWith('/vi_webp'))
-    url = url.slice(9, 20);
+  if(url.startsWith('https://i.ytimg.com/vi/'))
+    url = url.slice(23,34);
 
   // for featured playlists
   if (url.startsWith('/') || url.length === 11) return url;
@@ -46,4 +49,3 @@ img.onerror = () => img.src.includes('max') ? img.src = img.src.replace('maxres'
   .replace('.webp', '.jpg').replace('vi_webp', 'vi') : '';
 
 img.src = blankImage;
-
