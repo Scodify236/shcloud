@@ -66,7 +66,7 @@ export async function pipedPlaylistsImporter() {
         addListToCollection(listTitle, list);
       })
   )).then(() => {
-    notify('Succesfully imported playlists from your piped account into Raag Heaven as collections');
+    notify('Succesfully imported playlists from your piped account into Raag heaven as collections');
   })
     .catch(e => {
       notify('Could not successfully import all playlists, Error : ' + e);

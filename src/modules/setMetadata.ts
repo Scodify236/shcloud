@@ -56,7 +56,7 @@ export async function setMetaData(data: CollectionItem) {
 
 
   if (location.pathname === '/')
-    document.title = data.title + ' - Raag Heaven';
+    document.title = data.title + ' - Raag';
 
 
   if ('mediaSession' in navigator) {

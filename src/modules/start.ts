@@ -9,33 +9,15 @@ import { fetchCollection } from "../lib/libraryUtils";
 export default async function() {
 
   const custom_instance = getSaved('custom_instance_2');
-  const a = store.api;
 
   if (custom_instance) {
+
     const [pi, iv] = custom_instance.split(',');
-    a.piped.push(pi);
-    a.invidious.push(iv);
+    store.api.piped[0] = pi;
+    store.api.invidious[0] =
+      store.player.proxy = iv;
 
-  } else {
-    const rhApi =
-      (window as Window & typeof globalThis & { rhApi: string }
-      ).rhApi;
-
-    if (!rhApi) return;
-
-    await fetch(rhApi)
-      .then(res => res.json())
-      .then(data => {
-        a.piped = data.piped;
-        a.invidious = data.invidious;
-        a.unified = data.unified;
-        store.downloadAPI = data.cobalt;
-        store.player.proxy = data.proxy;
-        store.player.fallback = data.fallback;
-      });
   }
-
-
 
   // hls
 
@@ -108,7 +90,7 @@ export default async function() {
 
     loadingScreen.close();
   }
-  else document.getElementById('rhIconContainer')?.prepend(rhIcon);
+  else document.getElementById('RaagIconContainer')?.prepend(rhIcon);
 
   if (params.has('q')) {
     superInput.value = params.get('q') || '';

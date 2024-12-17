@@ -14,7 +14,8 @@ export const store: {
     data: Piped | undefined,
     legacy: boolean,
     fallback: string,
-    proxy: string
+    proxy: string,
+    ogProxy: string
   },
   queue: string[]
   stream: CollectionItem,
@@ -23,8 +24,8 @@ export const store: {
     piped: string[],
     invidious: string[],
     hyperpipe: string,
-    index: number,
-    unified: number
+    cobalt: string
+    index: number
   },
   loadImage: 'off' | 'lazy' | 'eager',
   linkHost: string,
@@ -33,7 +34,6 @@ export const store: {
   superCollectionType: 'featured' | 'collections' | 'channels' | 'feed' | 'playlists',
   actionsMenu: CollectionItem,
   list: List & Record<'url' | 'type' | 'uploader', string>,
-  downloadAPI: string,
   downloadFormat: 'opus' | 'wav' | 'mp3' | 'ogg'
 } = {
   player: {
@@ -50,7 +50,8 @@ export const store: {
     data: undefined,
     legacy: !('OffscreenCanvas' in window),
     fallback: '',
-    proxy: ''
+    proxy: '',
+    ogProxy: ''
   },
   queue: [],
   stream: {
@@ -62,11 +63,11 @@ export const store: {
   },
   streamHistory: [],
   api: {
-    piped: [],
-    invidious: [],
+    piped: ['https://yt-metadata-shashwat.vercel.app'],
+    invidious: ['https://invidious.nerdvpn.de'],
     hyperpipe: 'https://hyperpipeapi.onrender.com',
-    index: 0,
-    unified: 0
+    cobalt: '',
+    index: 0
   },
   loadImage: getSaved('imgLoad') as 'off' | 'lazy' || 'eager',
   linkHost: getSaved('linkHost') || location.origin,
@@ -88,7 +89,6 @@ export const store: {
     uploader: '',
     thumbnail: ''
   },
-  downloadAPI: '',
   downloadFormat: getSaved('dlFormat') as 'opus' || 'opus'
 }
 

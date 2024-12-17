@@ -1,6 +1,6 @@
 import { audio, listAnchor, playButton, progress, queuelist } from "../lib/dom";
 import player from "../lib/player";
-import { convertSStoHHMMSS, getDownloadLink, goTo, notify, removeSaved, save } from "../lib/utils";
+import { convertSStoHHMMSS, goTo, notify, removeSaved, save } from "../lib/utils";
 import { getSaved, params, store } from "../lib/store";
 import { appendToQueuelist, firstItemInQueue } from "./queue";
 import { addToCollection, getCollection } from "../lib/libraryUtils";
@@ -185,9 +185,22 @@ audio.onerror = function() {
     player(id);
     return;
   }
+
   console.log(audio.src);
-  if (!audio.src.startsWith(store.downloadAPI))
-    getDownloadLink(id).then(_ => audio.src = _);
+
+  const origin = new URL(audio.src).origin
+
+  if (audio.src.startsWith('https://r'))
+    audio.src = audio.src.replace(
+      origin
+      , store.player.proxy
+    ) + '&host=' + origin.slice(8);
+  else if (audio.src.startsWith(store.player.proxy) && store.player.ogProxy) {
+    audio.src = audio.src.replace(origin,
+      store.player.ogProxy
+    );
+    store.player.ogProxy = '';
+  }
 
 }
 

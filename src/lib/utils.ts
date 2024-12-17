@@ -76,7 +76,7 @@ export function convertSStoHHMMSS(seconds: number): string {
 
 export async function getDownloadLink(id: string): Promise<string> {
   const streamUrl = 'https://youtu.be/' + id;
-  const dl = await fetch(store.downloadAPI, {
+  const dl = await fetch(store.api.cobalt, {
     method: 'POST',
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -94,7 +94,7 @@ export async function getDownloadLink(id: string): Promise<string> {
 }
 
 export async function errorHandler(
-  message: string,
+  message: string = '',
   redoAction: () => void,
   finalAction: () => void
 ) {
@@ -103,11 +103,10 @@ export async function errorHandler(
 
   if (
     message !== 'No Data Found' &&
-    store.api.index < store.api.unified - 1
+    store.api.index < store.api.piped.length - 1
   ) {
     store.api.index++;
-    redoAction();
-    return;
+    return redoAction();
   }
   notify(message);
   finalAction();
