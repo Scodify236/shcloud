@@ -63,7 +63,7 @@ export const store: {
   },
   streamHistory: [],
   api: {
-    piped: ['https://yt-metadata-shashwat.vercel.app'],
+    piped: ['https://raagheaven-services.vercel.app'],
     invidious: ['https://invidious.nerdvpn.de'],
     hyperpipe: 'https://hyperpipeapi.onrender.com',
     cobalt: '',
