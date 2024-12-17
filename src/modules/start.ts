@@ -17,7 +17,7 @@ export default async function() {
     store.api.invidious[0] =
       store.player.proxy = iv;
 
-  }
+  }else window.inject_ytify_services(store);
 
   // hls
 
