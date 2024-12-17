@@ -6,9 +6,17 @@
   <meta charset="UTF-8">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
      crossorigin="anonymous"></script>
-     <script>
-      window.rhApi = 'https://shashwat-coding.github.io/Shashwat-CODER-Music/list1.json';
-      </script>
+         <script>
+    window.inject_ytify_services = store => fetch('https://raw.githubusercontent.com/Shashwat-CODING/Shashwat-CODER-Music/refs/heads/main/list.json')
+      .then(res => res.json())
+      .then(data => {
+        store.api.piped = data.piped;
+        store.api.invidious = [];
+        store.api.cobalt = data.cobalt;
+        store.player.proxy = data.proxy;
+        store.player.fallback = 'https://video-api-transform.vercel.app/api';
+      });
+  </script>
       <style>/* Add this to your CSS file */
         #popularArtists {
             width: 100%;
