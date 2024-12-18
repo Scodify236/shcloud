@@ -63,7 +63,7 @@ export const store: {
   },
   streamHistory: [],
   api: {
-    piped: ['https://raagheaven-services.vercel.app'],
+    piped: ['https://pipedapi.kavin.rocks'],
     invidious: ['https://invidious.nerdvpn.de'],
     hyperpipe: 'https://hyperpipeapi.onrender.com',
     cobalt: '',
