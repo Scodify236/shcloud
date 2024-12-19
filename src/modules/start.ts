@@ -1,7 +1,7 @@
 import { type SortableEvent } from 'sortablejs';
 import player from '../lib/player';
 import { getSaved, params, store } from '../lib/store';
-import { $, getDownloadLink, idFromURL, notify } from '../lib/utils';
+import { $, getDownloadLink, idFromURL, notify, proxyHandler } from '../lib/utils';
 import { bitrateSelector, searchFilters, superInput, audio, loadingScreen, rhIcon, queuelist } from '../lib/dom';
 import fetchList from '../modules/fetchList';
 import { fetchCollection } from "../lib/libraryUtils";
@@ -17,7 +17,7 @@ export default async function() {
     store.api.invidious[0] =
       store.player.proxy = iv;
 
-  }else window.inject_ytify_services(store);
+  } else window.inject_Raag_services(store);
 
   // hls
 
@@ -57,11 +57,11 @@ export default async function() {
           })
         })
   }
-  else bitrateSelector.addEventListener('change', () => {
+  else bitrateSelector.addEventListener('change', async () => {
     if (store.player.playbackState === 'playing')
       audio.pause();
     const timeOfSwitch = audio.currentTime;
-    audio.src = bitrateSelector.value;
+    audio.src = await proxyHandler(bitrateSelector.value);
     audio.currentTime = timeOfSwitch;
     audio.play();
   });
@@ -90,7 +90,7 @@ export default async function() {
 
     loadingScreen.close();
   }
-  else document.getElementById('RaagIconContainer')?.prepend(rhIcon);
+  else document.getElementById('rhIconContainer')?.prepend(rhIcon);
 
   if (params.has('q')) {
     superInput.value = params.get('q') || '';

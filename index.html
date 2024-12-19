@@ -1,13 +1,37 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
-     crossorigin="anonymous"></script>
-         <script>
-    window.inject_ytify_services = store => fetch('https://raw.githubusercontent.com/Shashwat-CODING/Shashwat-CODER-Music/refs/heads/main/list.json')
+
+  <meta name="description"
+    content="48kb/s to 160kb/s youtube audio streaming website. Copy a youtube video link or search a video up and listen to it as an audio totally free. Background Playback, Queues, Themes for a great user experience.">
+  <meta name="author" content="Shashwat">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="white">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="keywords"
+    content="Raag heaven,raag, Raag heaven, Youtube, youtube, Music,music, audio,opus, 32kbps,64kbps,Free ,spotify ,streaming, music-player ,  youtube-player , free-music, ytmusic">
+  <meta name="thumbnail" content="/rh_thumbnail_min.webp">
+
+  <!-- social media preview, more info https://ogp.me -->
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Raag heaven">
+  <meta property="og:url" content="https://shcloud.netlify.app">
+  <meta property="og:site_name" content="Raag heaven">
+  <meta property="og:description" content="48-160kbps Opus YouTube Audio Streaming Web App.">
+  <meta property="og:image" content="/rh_thumbnail_min.webp">
+  <!-- tells google that this url is most important (e.g. not http (without s = secure))-->
+  <link rel="canonical" href="https://shcloud.netlify.app">
+
+  <link rel="icon" type="image/png" href="/logo192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/logo512.png" sizes="512x512">
+  <link rel="apple-touch-icon" href="/logo192.png">
+  <link rel="icon" type="image/svg+xml" href="/rh_lite.svg">
+  
+  <script>
+    window.inject_Raag_services = store => fetch('https://raw.githubusercontent.com/Shashwat-CODING/Shashwat-CODER-Music/refs/heads/main/list.json')
       .then(res => res.json())
       .then(data => {
         store.api.piped = data.piped;
@@ -17,36 +41,8 @@
         store.player.fallback = 'https://video-api-transform.vercel.app/api';
       });
   </script>
-  <meta name="description"
-    content="48kb/s to 160kb/s youtube audio streaming website. Copy a youtube video link or search a video up and listen to it as an audio totally free. Background Playback, Queues, Themes for a great user experience.">
-  <meta name="author" content="n-ce">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="white">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="keywords"
-    content="raagheaven,heaven, Raag Reaven,raag,raagheaven, Youtube, youtube, Music,music, audio,opus, 32kbps,64kbps,Free ,spotify ,streaming, music-player ,  youtube-player , free-music, ytmusic">
-  <meta name="thumbnail" content="/rh_thumbnail_min.webp">
 
-  <!-- social media preview, more info https://ogp.me -->
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="raagheaven">
-  <meta property="og:url" content="https://raagheaven.netlify.app">
-  <meta property="og:site_name" content="raagheaven">
-  <meta property="og:description" content="48-160kbps Opus YouTube Audio Streaming Web App.">
-  <meta property="og:image" content="/rh_thumbnail_min.webp">
-  <!-- a4 -->
-
-  <!-- tells google that this url is most important (e.g. not http (without s = secure))-->
-  <link rel="canonical" href="https://raagheaven.netlify.app">
-
-  <link rel="icon" type="image/png" href="/logo192.png" sizes="192x192">
-  <link rel="icon" type="image/png" href="/logo512.png" sizes="512x512">
-  <link rel="apple-touch-icon" href="/logo192.png">
-  <link rel="icon" type="image/svg+xml" href="/rh_lite.svg">
-
-
-  <title>Raag Heaven</title>
+  <title>Raag heaven</title>
 </head>
 
 <body>
@@ -70,7 +66,7 @@
         <i class="ri-stack-line"></i>
         <p>Library</p>
       </a>
-      <a href="/settings" id="/settings" class="">
+      <a href="/settings" id="/settings">
         <i class="ri-settings-line"></i>
         <p>Settings</p>
       </a>
@@ -195,10 +191,9 @@
 
     <section id="search">
       <form id="superInputContainer">
-        
         <input type="search" id="superInput" autocomplete="off"
-          placeholder='Search or enter YouTube URL             CTRL+K' />
-        <select id="searchFilters" class="hide">
+          placeholder='Search or enter YT URL             CTRL+K' />
+        <select id="searchFilters">
           <optgroup label="YouTube">
             <option value="all">All</option>
             <option value="videos">Videos</option>
@@ -220,47 +215,56 @@
       </form>
       <ul id="suggestions"></ul>
       <div id="searchlist">
-      </div>
-   <p style="
-        background:url('/rh_banner.webp') center;
-        padding: 5vmin;
+        <p style="
+        background:url('/rh_thumbnail_min.webp') center;
+        padding: 3vmin;
         box-shadow: var(--shadow);
         border-radius: var(--roundness);
         background-size:cover;
         color:white;
          " align="center">
-          <b style="background-color:#0003;
+          <b style="background-color:rgba(255, 255, 255, 0);
           display:block;
-          backdrop-filter: blur(2px);
+          backdrop-filter: blur(1px);
           ">
-            🥳🥳 Now we have our own api server, to tell us about probblems click <a href="https://github.com/n-ce/ytify/wiki/usage"
+            Welcome to Raag heaven, to get in touch click, <a href="https://shcloud.netlify.app/cont.html"
               style="text-decoration: underline;" target="_blank">here</a>.
           </b>
         </p>
-</div>
-      <p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
-     crossorigin="anonymous"></script>
-<!-- mid unit -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1237614381130102"
-     data-ad-slot="8196339816"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
-    <p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-1237614381130102"
-     data-ad-slot="5166290712"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
+        <p style="
+        padding: 3vmin;
+        margin-top:5vmin;
+        box-shadow: var(--shadow);
+        border-radius: var(--roundness);
+        background-color:rgba(68, 34, 67, 0.667);
+        color:#efec;
+         " align="center">
+          🥳🥳 Now we have our own api server.
+        </p>
+        <p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
+          crossorigin="anonymous"></script>
+     <!-- mid unit -->
+     <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-1237614381130102"
+          data-ad-slot="8196339816"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+     <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+     </script></p>
+         <p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
+          crossorigin="anonymous"></script>
+     <ins class="adsbygoogle"
+          style="display:block; text-align:center;"
+          data-ad-layout="in-article"
+          data-ad-format="fluid"
+          data-ad-client="ca-pub-1237614381130102"
+          data-ad-slot="5166290712"></ins>
+     <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+     </script></p>
+      </div>
     </section>
 
 
@@ -291,8 +295,8 @@
         <label for="r.featured">Featured</label>
         <input type="radio" id="r.collections" name="superCollectionChips" value="collections">
         <label for="r.collections">Playlists</label>
-        <!--<input type="radio" id="r.playlists" name="superCollectionChips" value="playlists" >
-        <label for="r.playlists">Playlists</label> -->
+       <!-- <input type="radio" id="r.playlists" name="superCollectionChips" value="playlists">
+        <label for="r.playlists">Playlists</label>-->
         <input type="radio" id="r.albums" name="superCollectionChips" value="albums">
         <label for="r.albums">Albums</label>
         <input type="radio" id="r.artists" name="superCollectionChips" value="artists">
@@ -338,6 +342,12 @@
             <input type="file" id="importSettingsBtn" class="hide">
           </button>
 
+          <a href="https://github.com/scodify236/raagheaven" target="_blank">Github</a>
+
+         <!-- <a href="https://t.me/ytifytg" target="_blank">Telegram</a> -->
+
+        <!--  <a href="https://matrix.to/#/#ytify:matrix.org" target="_blank">Matrix</a> -->
+
         </form>
 
       </div>
@@ -346,7 +356,7 @@
     <section id="list">
       <span id="listTools">
         <button id="playAllBtn">
-          <i class="ri-play-large-line"></i> Play All
+          <i class="ri-play-large-line"></i> Play
         </button>
         <button id="enqueueAllBtn">
           <i class="ri-list-check-2"></i> Enqueue
@@ -375,7 +385,7 @@
       </span>
       <br>
       <div id="playlist">
-        <h1>playlist, channel or your collection items show here</h1>
+        <h1>playlist, channel or your Playlist items show here</h1>
       </div>
     </section>
 

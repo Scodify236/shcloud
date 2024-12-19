@@ -53,7 +53,7 @@ export default function() {
     <>
       <div>
         <b id="rhIconContainer">
-          <p>Raag Heaven {Version}</p>
+          <p>Raag heaven {Version}</p>
         </b>
 
         <ToggleSwitch
@@ -93,7 +93,7 @@ export default function() {
           }}
         >
 
-          <option value="https://shcloud.netlify.app">Raag Heaven</option>
+          <option value="https://shcloud.netlify.app">Raag heaven</option>
           <option value="https://youtube.com">YouTube</option>
           <option value="https://piped.video">Piped</option>
           <option value="https://yewtu.be">Invidious</option>
@@ -150,8 +150,8 @@ export default function() {
           }}
 
         >
-          <option value='opus'>Opus (Recommended)</option>
-          <option value='mp3'>MP3</option>
+          <option value='opus'>Opus</option>
+          <option value='mp3'>MP3 (Recommended)</option>
           <option value='wav'>WAV</option>
           <option value='ogg'>OGG</option>
         </Selector>
@@ -267,7 +267,7 @@ export default function() {
 
           <ToggleSwitch
             id="enforceProxySwitch"
-            name='Proxy non-music streams'
+            name='Always Proxy Streams'
             checked={getSaved('enforceProxy') === 'true'}
             onClick={() => {
               getSaved('enforceProxy') ?
@@ -279,7 +279,6 @@ export default function() {
 
 
         </Show>
-
 
 
       </div>

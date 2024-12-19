@@ -14,8 +14,7 @@ export const store: {
     data: Piped | undefined,
     legacy: boolean,
     fallback: string,
-    proxy: string,
-    ogProxy: string
+    proxy: string
   },
   queue: string[]
   stream: CollectionItem,
@@ -49,9 +48,8 @@ export const store: {
     }).then(res => res.supported),
     data: undefined,
     legacy: !('OffscreenCanvas' in window),
-    fallback: '',
-    proxy: '',
-    ogProxy: ''
+    fallback: 'https://pipedapi.reallyaweso.me',
+    proxy: 'https://invidious.jing.rocks'
   },
   queue: [],
   stream: {
@@ -64,9 +62,9 @@ export const store: {
   streamHistory: [],
   api: {
     piped: ['https://pipedapi.kavin.rocks'],
-    invidious: ['https://invidious.nerdvpn.de'],
+    invidious: ['https://invidious.jing.rocks'],
     hyperpipe: 'https://hyperpipeapi.onrender.com',
-    cobalt: '',
+    cobalt: 'https://api.cobalt.tools',
     index: 0
   },
   loadImage: getSaved('imgLoad') as 'off' | 'lazy' || 'eager',

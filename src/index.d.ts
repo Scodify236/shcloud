@@ -1,7 +1,7 @@
 declare global {
 
   interface Window {
-    inject_ytify_services: (arg0: {}) => Promise<void>
+    inject_Raag_services: (arg0: {}) => Promise<void>
   }
 
   type StreamItem = {
