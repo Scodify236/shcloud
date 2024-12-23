@@ -1,7 +1,8 @@
+
 {
-  "name": "ytify",
+  "name": "Raagheaven",
   "type": "module",
-  "version": "7.4",
+  "version": "2.4",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -23,7 +24,8 @@
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
     "vite-plugin-pwa": "^0.21.1",
-    "vite-plugin-solid": "^2.11.0"
+    "vite-plugin-solid": "^2.11.0",
+     "@rollup/rollup-linux-x64-gnu": "^4.29.1"
   },
   "browserslist": [
     "defaults"
