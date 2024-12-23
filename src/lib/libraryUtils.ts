@@ -171,7 +171,7 @@ export async function superCollectionLoader(name: SuperCollection) {
       a.append(i, v);
       fragment.appendChild(a);
     });
-    return pls.length ? fragment : 'No Playlists Found';
+    return pls.length ? fragment : 'No Collections Found';
   }
 
   /*

@@ -1,4 +1,4 @@
-import { actionsMenu, loadingScreen, searchFilters, superInput,rhIcon } from "../lib/dom";
+import { actionsMenu, loadingScreen, searchFilters, superInput, rhIcon } from "../lib/dom";
 import { goTo } from "../lib/utils";
 import { getSaved, params, store } from "../lib/store";
 import { appendToQueuelist } from "./queue";

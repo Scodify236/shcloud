@@ -52,8 +52,8 @@ export default function() {
   return (
     <>
       <div>
-        <b id="rhIconContainer">
-          <p>Raag heaven {Version}</p>
+        <b id="ytifyIconContainer">
+          <p>ytify {Version}</p>
         </b>
 
         <ToggleSwitch
@@ -93,7 +93,7 @@ export default function() {
           }}
         >
 
-          <option value="https://shcloud.netlify.app">Raag heaven</option>
+          <option value="https://ytify.us.kg">ytify</option>
           <option value="https://youtube.com">YouTube</option>
           <option value="https://piped.video">Piped</option>
           <option value="https://yewtu.be">Invidious</option>
@@ -150,8 +150,8 @@ export default function() {
           }}
 
         >
-          <option value='opus'>Opus</option>
-          <option value='mp3'>MP3 (Recommended)</option>
+          <option value='opus'>Opus (Recommended)</option>
+          <option value='mp3'>MP3</option>
           <option value='wav'>WAV</option>
           <option value='ogg'>OGG</option>
         </Selector>
@@ -280,6 +280,18 @@ export default function() {
 
         </Show>
 
+        <ToggleSwitch
+          id="HLS_Switch"
+          name='HTTP Live Streaming'
+          checked={getSaved('HLS') === 'true'}
+          onClick={() => {
+            getSaved('HLS') ?
+              removeSaved('HLS') :
+              save('HLS', 'true');
+            location.reload();
+          }}
+
+        />
 
       </div>
 
@@ -468,7 +480,7 @@ function extractSettings() {
 
 function exportSettings() {
   const link = $('a');
-  link.download = 'Raag_settings.json';
+  link.download = 'ytify_settings.json';
   link.href = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(extractSettings(), undefined, 2))}`;
   link.click();
 }

@@ -48,7 +48,7 @@ export const store: {
     }).then(res => res.supported),
     data: undefined,
     legacy: !('OffscreenCanvas' in window),
-    fallback: 'https://pipedapi.reallyaweso.me',
+    fallback: 'https://raag-emergency.vercel.app/api',
     proxy: 'https://invidious.jing.rocks'
   },
   queue: [],
@@ -61,10 +61,10 @@ export const store: {
   },
   streamHistory: [],
   api: {
-    piped: ['https://raagheaven-services.vercel.app'],
+    piped: ['https://pipedapi.kavin.rocks'],
     invidious: ['https://invidious.jing.rocks'],
     hyperpipe: 'https://hyperpipeapi.onrender.com',
-    cobalt: 'https://api.cobalt.tools',
+    cobalt: 'https://cobalt-api.kwiatekmiki.com',
     index: 0
   },
   loadImage: getSaved('imgLoad') as 'off' | 'lazy' || 'eager',
