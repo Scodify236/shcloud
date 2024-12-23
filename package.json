@@ -24,7 +24,7 @@
     "vite": "^6.0.5",
     "vite-plugin-pwa": "^0.21.1",
     "vite-plugin-solid": "^2.11.0",
-     "@rollup/rollup-linux-x64-gnu": "^1.0.0"
+     "@rollup/rollup-linux-x64-gnu": "^4.29.1"
   },
   "browserslist": [
     "defaults"
