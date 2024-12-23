@@ -5,7 +5,7 @@ export default async (_: Request, context: Context) => {
   const { id } = context.params;
   if (!id || id.length < 11) return;
   const host = 'ytstream-download-youtube-videos.p.rapidapi.com';
-  const url = `https://${host}/dl?id=${id}`;
+  const url = `https://${host}/dl?id=${id}&cgeo=IN`;
   const keys = Netlify.env.get('RAPID_API_KEYS')!.split(',');
 
   shuffle(keys);
