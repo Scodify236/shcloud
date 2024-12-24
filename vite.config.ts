@@ -95,7 +95,6 @@ export default defineConfig(({ command }) => ({
           writeBundle() {
             // Copy ads.txt and cont.html to the dist folder after build
             const distDir = path.resolve(__dirname, 'dist');
-            fs.copySync(path.resolve(__dirname, 'ads.txt'), path.join(distDir, 'ads.txt'));
             fs.copySync(path.resolve(__dirname, 'cont.html'), path.join(distDir, 'cont.html'));
           }
         }
